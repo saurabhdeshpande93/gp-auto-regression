@@ -7,7 +7,8 @@ This work introduces an approach that combines autoencoder networks with the pro
 
 The framework takes force inputs and predicts full-field displacements of solid bodies along with uncertainties.
 
-The proposed framework has two stages
+The proposed framework has two stages <br />
+
 **1. Training**: <br />
 - Autoencoder Network Training: Train the autoencoder network on full field displacement data and use the encoder part to obtain latent representations of the full field displacements.
 - Gaussian Processes Training: Use the latent representations obtained using the autoencoder network to train independent GPs. The input features for the GPs are body force density vectors, each with a dimension of 3.
@@ -113,7 +114,7 @@ AceFEM is available [here](http://symech.fgg.uni-lj.si/Download.htm).
 
 ## Datasets
 
-** NOTE: Datasets will be provided soon.**
+**NOTE: Datasets will be provided soon.**
 
 Training data will be provided in the [<span style="color:blue">'src/data/training_data'</span>](src/bash) directory. Datsets have been obtained through non-linear FEM simulations using [AceFEM](http://symech.fgg.uni-lj.si/Download.htm) framework. The pipeline to create numpy arrays of datasets will be provided soon. <br />
 
