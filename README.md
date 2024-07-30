@@ -1,14 +1,14 @@
 ## Gaussian Process Regression + Deep Neural Network Autoencoder for Probabilistic Surrogate Modeling in Nonlinear Mechanics of Solids  
 
-This work introduces an approach that combines autoencoder networks with the probabilistic regression capabilities of Gaussian processes. The autoencoder provides a low-dimensional representation of the solution space, while the Gaussian Processes (GPs) provides a probabilistic mapping between the low-dimensional inputs and outputs. We show the applications of the proposed approach in predicting non-linear deformation of solids along with associated uncertainties.
+This work introduces an approach that combines autoencoder networks with the probabilistic regression capabilities of Gaussian processes. The autoencoder provides a low-dimensional representation of the solution space, while the Gaussian Processes (GPs) provide a probabilistic mapping between the low-dimensional inputs and outputs. We show the applications of the proposed approach in predicting the non-linear deformation of solids along with associated uncertainties.
 <br />
 
 ### Framework Overview
 
-The framework is used to predict full field displacement of solid bodies subjected along with uncertainties, provided forces applied on it.
+The framework takes force inputs and predicts full-field displacements of solid bodies along with uncertainties.
 
 The proposed framework has two stages
-1. **Training**: <br />
+**1. Training**: <br />
 - Autoencoder Network Training: Train the autoencoder network on full field displacement data and use the encoder part to obtain latent representations of the full field displacements.
 - Gaussian Processes Training: Use the latent representations obtained using the autoencoder network to train independent GPs. The input features for the GPs are body force density vectors, each with a dimension of 3.
 
@@ -16,7 +16,7 @@ The proposed framework has two stages
 
 <br />
 
-2. **Prediction**: <br />
+**2. Prediction**: <br />
 - Latent Displacement Prediction: Once both models are trained, for a given input force, predict distributions for latent displacements using the GPs.
 - Full Field Projection: Project the latent displacements to the full field using the decoder part of the autoencoder network.
 
@@ -61,14 +61,14 @@ python train.py --model autoencoder
 python train.py --model gp
 ```
 
-Instead of running above scripts manually one can directly submit jobs using the `train.sh` (SLURM launcher script) provided in the [<span style="color:blue">'src/bash'</span>](src/bash) directory
+Instead of running the above scripts manually one can directly submit jobs using the `train.sh` (SLURM launcher script) provided in the [<span style="color:blue">'src/bash'</span>](src/bash) directory
 
 ```bash
 sbatch train.sh
 ```
-The above step submit jobs for training both autoencoder and GPs in the respective order.
+The above step submits jobs for training both autoencoder and GPs in the respective order.
 
-Once the training is finished, optimised models are used to make predictions on new cases by providing the path of autoencoder weights file (identified with a unique timestamp generated while training) to `predict.py`.
+Once the training is finished, optimised models are used to make predictions on new cases by providing the path of the autoencoder weights file (identified with a unique timestamp generated while training) to `predict.py`.
 
 
 **Note**: All essential parameters are located in the `config.py` file and can be modified as needed.
@@ -91,7 +91,7 @@ cd gp-auto-regression
 ```
 2. Set up the virtual environment and install dependencies:
 
-For CPU system, create a virutal environment with pip or conda and install dependencies using 'requirement.txt' file as follows:
+For CPU system, create a virtual environment with pip or conda and install dependencies using 'requirement.txt' file as follows:
 ```bash
 conda create -n gpauto python==3.10
 conda activate gpauto
@@ -104,11 +104,11 @@ conda env create -f gpauto.yml
 conda activate gpauto
 ```
 
-3. AceFEM installation for datageneration and postprocessing
+3. AceFEM installation for data generation and postprocessing
 
 Non-linear finite element simulations to generate the synthetic data are performed using the [AceFEM](http://symech.fgg.uni-lj.si/Download.htm)
 library. AceFEM, which is based on Mathematica, requires Mathematica to be installed beforehand. Detailed installation instructions for
-AceFEM are available [here](http://symech.fgg.uni-lj.si/Download.htm).
+AceFEM is available [here](http://symech.fgg.uni-lj.si/Download.htm).
 <br />
 
 ## Datasets
@@ -117,7 +117,7 @@ AceFEM are available [here](http://symech.fgg.uni-lj.si/Download.htm).
 
 Training data will be provided in the [<span style="color:blue">'src/data/training_data'</span>](src/bash) directory. Datsets have been obtained through non-linear FEM simulations using [AceFEM](http://symech.fgg.uni-lj.si/Download.htm) framework. The pipeline to create numpy arrays of datasets will be provided soon. <br />
 
-Originally following four dataset arrays are provided.:
+Originally, the following four dataset arrays are provided.:
 
 | Data                       | Shape                    | Description                                           |
 |----------------------------|--------------------------|-------------------------------------------------------|
