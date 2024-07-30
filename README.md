@@ -8,7 +8,7 @@ This work introduces an approach that combines autoencoder networks with the pro
 The framework is used to predict full field displacement of solid bodies subjected along with uncertainties, provided forces applied on it.
 
 The proposed framework has two stages
-1. Training: <br />
+1. **Training**: <br />
 - Autoencoder Network Training: Train the autoencoder network on full field displacement data and use the encoder part to obtain latent representations of the full field displacements.
 - Gaussian Processes Training: Use the latent representations obtained using the autoencoder network to train independent GPs. The input features for the GPs are body force density vectors, each with a dimension of 3.
 
@@ -16,7 +16,7 @@ The proposed framework has two stages
 
 <br />
 
-2. Prediction: <br />
+2. **Prediction**: <br />
 - Latent Displacement Prediction: Once both models are trained, for a given input force, predict distributions for latent displacements using the GPs.
 - Full Field Projection: Project the latent displacements to the full field using the decoder part of the autoencoder network.
 
@@ -113,7 +113,9 @@ AceFEM are available [here](http://symech.fgg.uni-lj.si/Download.htm).
 
 ## Datasets
 
-Training data is provided in the [<span style="color:blue">'src/data/training_data'</span>](src/bash) directory. Datsets have been obtained through non-linear FEM simulations using [AceFEM](http://symech.fgg.uni-lj.si/Download.htm) framework. The pipeline to create numpy arrays of datasets will be provided soon. <br />
+** NOTE: Datasets will be provided soon.**
+
+Training data will be provided in the [<span style="color:blue">'src/data/training_data'</span>](src/bash) directory. Datsets have been obtained through non-linear FEM simulations using [AceFEM](http://symech.fgg.uni-lj.si/Download.htm) framework. The pipeline to create numpy arrays of datasets will be provided soon. <br />
 
 Originally following four dataset arrays are provided.:
 
