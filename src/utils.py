@@ -125,9 +125,38 @@ def check_latent_exists(best_wts_path):
         raise ValueError("\n=== Error: Latent representations don't exit. Generate and train GP on them first.")
 
 
+def get_partial_data(input_data, output_data, radius=0.015, mask_type='outside'):
+    """
+    Masks the input data points either inside or outside the given radius from the origin. We will use to train GP only on
+    partial data to see the trend of uncertainty in the region not covered by the data. The original data was created by
+    randomly generating force vectors, with each component independently sampled from a uniform distribution in the range of [-0.02, 0.02].
+
+    Args:
+        input_data (numpy.ndarray): The input data points to be masked, shape (n_samples, 3).
+        output_data (numpy.ndarray): The output data points corresponding to the input data, shape (n_samples, latent_dim).
+        radius (float): The radius within which to mask data points. Default is 0.015.
+        mask_type (str): The type of mask to apply ('inside' or 'outside'). Default is 'outside', which gives points outside the radius.
+
+    Returns:
+        tuple: The masked input and output data points based on the mask_type.
+    """
+    # Calculate the magnitude () of the input array for all examples
+    magnitudes = np.linalg.norm(input_data, axis=1)
+
+    # Create a mask depending on if the points are inside or outside of the provided radius
+    if mask_type == 'inside':
+        # Filter the points inside the specified radius
+        mask = np.where(magnitudes<radius)[0]
+    elif mask_type == 'outside':
+        # Filter the points outside the specified radius
+        mask = np.where(magnitudes>radius)[0]
+    else:
+        raise ValueError("mask_type must be either 'inside' or 'outside'")
+
+    return input_data[mask], output_data[mask], mask
+
 
 def original_order(input):
-
     """
     Reorder the output array into the original Acegen ordering. Quantities of interest obtained by GP+Autoencoder framework
     represent displacements, stds, errors corresponding to 3 degrees of freedom of each node of the mesh and usual
@@ -172,11 +201,15 @@ def process_and_save_prediction(test_no, full_disps, full_sigmas, true_latent_re
     e_r = np.abs(true_latent_reconstruction - fem_solution)  # Reconstruction error
     e_gp = np.abs(e_f - e_r)  # GP componet error corresponding to the full space
 
+
+
     print(f"\n=== Results for the test example {test_no}:")
-    print(f"    Max displacement for a dof  =  {np.max(np.abs(full_disps))}")
+    print(f"    Max displacement for a dof  =  {np.max(np.abs(fem_solution))}")
     print(f"    Mean error of GP+Autoencoder prediction  =  {np.mean(e_f)}")
     print(f"    Mean reconstruction error =  {np.mean(e_r)}")
     print(f"    Mean GP component error (corresponding to full field) =  {np.mean(e_gp)}")
+    print("    Max e_GP", np.max(e_gp))
+    print("    Max e_r", np.max(e_r))
 
     data_list = [full_disps, fem_solution, e_f, full_sigmas, e_gp, e_r]
 
@@ -222,12 +255,11 @@ def framework_art():
     Print ASCII art representation of the framework.
     """
     ascii_art = """
-                _                   _____ _____  
-     /\        | |           _     / ____|  __ \ 
+                _                   _____ _____
+     /\        | |           _     / ____|  __ \
     /  \  _   _| |_ ___    _| |_  | |  __| |__) |
-   / /\ \| | | | __/ _ \  |_   _| | | |_ |  ___/ 
-  / ____ \ |_| | || (_) |   |_|   | |__| | |     
- /_/    \_\__,_|\__\___/           \_____|_|  
+   / /\ \| | | | __/ _ \  |_   _| | | |_ |  ___/
+  / ____ \ |_| | || (_) |   |_|   | |__| | |
+ /_/    \_\__,_|\__\___/           \_____|_|
     """
     print(ascii_art)
-

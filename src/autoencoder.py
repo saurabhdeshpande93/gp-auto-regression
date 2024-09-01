@@ -265,7 +265,7 @@ class Autoencoder:
 
         callbacks = [LearningRateScheduler(Autoencoder.lr_scheduler, verbose=1), model_checkpoint_callback, tensorboard_callback]
 
-        self.model.fit(Y_train, Y_train, epochs= self.epochs, batch_size= self.batch_size, shuffle=True, validation_split=0.05, callbacks=callbacks)
+        self.model.fit(Y_train, Y_train, epochs= self.epochs, batch_size= self.batch_size, shuffle=True, validation_split=0.015, callbacks=callbacks)
 
         # Now assigned the best weights saved during the training
         self.load_wts()

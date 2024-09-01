@@ -3,7 +3,8 @@ from autoencoder import Autoencoder
 from gplatent import GPLatent
 from utils import get_data
 import datetime
-
+from sklearn.preprocessing import MinMaxScaler
+import joblib
 
 def train_autoencoder():
     """
@@ -39,7 +40,7 @@ def train_gp():
 
     # STEP 4 = Define GP and train it
     gp = GPLatent(Training=True, timestamp = timestamp_auto)
-    gp.train(latent_inputs_train, latent_outputs_train)
+    gp.train(latent_inputs_train, latent_outputs_train, with_mask = False)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train Autoencoder or GP')

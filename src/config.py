@@ -12,7 +12,7 @@ result_path = os.getcwd() + '/results/'                     # Directory for savi
 dof = 9171           # Degrees of freedom: 3057 nodes * 3 DOFs per node
 latent_dim = 16      # Latent dimension for the autoencoder, also no. of output distributions for GPs
 activation = 'relu'  # Activation function to be used in the autoencoder.
-epochs = 1           # Number of training epochs.
+epochs = 3000          # Number of training epochs.
 batch_size = 16      # Batch size for training
 lr0 = 0.0001         # Initial learning rate for training autoencoder.
 

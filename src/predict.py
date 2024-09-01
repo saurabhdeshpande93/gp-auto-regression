@@ -1,12 +1,15 @@
 import argparse
 from autoencoder import Autoencoder
 from gplatent import GPLatent
-from utils import get_data, process_and_save_prediction
+from utils import get_data, process_and_save_prediction, get_partial_data
 from config import trained_wts_dir
+import numpy as np
+import joblib
 
 def main(best_wts_path, test_no):
+
     # STEP 1: Get the input in the latent representation for a new example
-    latent_inputs_test, latent_outputs_test = get_data(data_type='latent', dataset='test', auto_wts_path=best_wts_path, print_art=True)
+    latent_inputs_test, latent_outputs_test = get_data(data_type='latent', dataset='test', auto_wts_path=best_wts_path, latest_saved=True, print_art=True)
 
     # STEP 2: Define GP and predict latent distributions
     gp = GPLatent()
@@ -19,11 +22,12 @@ def main(best_wts_path, test_no):
 
     # STEP 4: Save results to visualize
     process_and_save_prediction(test_no, full_disps, full_sigmas, true_latent_reconstruction)
+    print("\n Done \n")
 
 if __name__ == '__main__':
 
-    default_best_wts_path = trained_wts_dir + "best_auto.h5"  # Default path for best autoencoder weights
-    test_no = 276  # Default test example number for predicting and visualising results
+    default_best_wts_path = trained_wts_dir + "best.h5"  # Default path for best autoencoder weights
+    test_no = 22  # Default test example number for predicting and visualising results
 
     parser = argparse.ArgumentParser(description='Run the autoencoder with specified weights and choose test number for visualising framework prediction.')
     parser.add_argument('--wts_path', type=str, default=default_best_wts_path, help='Path to the best weights file')

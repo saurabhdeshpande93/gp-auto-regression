@@ -39,7 +39,7 @@ It is important to note that the GP models should be trained on the latent repre
 autoencoder models whose path is provided in the above step. This is because different autoencoder
 models can have different latent representations for the same full field space data. Ensuring that the GP models are trained on the appropriate latent representations is crucial for accurate predictions.
 
-Default trained **autoencoder model weights and GP models will be provided** in the ['src/pretrained_models'](src/pretrained_models) directory. The autoencoder weight file is `best_auto.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the ['src/pretrained_models/best_GPs'](src/pretrained_models/best_GPs) directory.
+Default trained **autoencoder model weights and GP models will be provided** in the ['src/pretrained_models'](src/pretrained_models) directory. The autoencoder weight file is `best.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the ['src/pretrained_models/best_GPs'](src/pretrained_models/best_GPs) directory.
 
 - ### Postprocessing of results <br />
 
@@ -132,8 +132,8 @@ Compressed (encoded) representations of `Y_train.npy` and `Y_test.npy` obtained 
 
 | Compressed Data                       | Shape                    | Description                                           |
 |----------------------------|--------------------------|-------------------------------------------------------|
-| `best_auto_latent_outputs_train.npy`| `(n_train, latent_dim)`   | Latent displacements of train set (obtained after encoding Y_train)     |
-| `best_auto_latent_outputs_test.npy` | `(n_test, latent_dim)`    | Latent displacements of test set (obtained after encoding Y_test)       |
+| `best_latent_outputs_train.npy`| `(n_train, latent_dim)`   | Latent displacements of train set (obtained after encoding Y_train)     |
+| `best_latent_outputs_test.npy` | `(n_test, latent_dim)`    | Latent displacements of test set (obtained after encoding Y_test)       |
 
 <br />
 

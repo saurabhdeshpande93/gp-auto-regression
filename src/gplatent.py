@@ -7,6 +7,7 @@ import multiprocessing
 import time
 from config import trained_wts_dir,latent_dim, length_scale, nu, noise_level, noise_level_bounds, alpha, gp_optimizer, n_restarts_optimizer
 import os
+from utils import get_partial_data
 
 class GPLatent:
     """
@@ -43,8 +44,9 @@ class GPLatent:
         self.gp_optimizer = gp_optimizer
         self.n_restarts_optimizer = n_restarts_optimizer
         if not self.Training:
-            print("\n=== Predicting latent distributions using GPs ...")
             self.saved_models_path = trained_wts_dir + "best_GPs/"
+            print("\n=== Predicting latent distributions using GPs ... ")
+            print(f"    Using {self.saved_models_path}")
         else:
             print("\n=== Training of independent GPs ...")
             self.kernel = 1.0 * Matern(length_scale=length_scale, nu=nu) + WhiteKernel(noise_level=noise_level, noise_level_bounds=noise_level_bounds)
@@ -58,7 +60,7 @@ class GPLatent:
         os.makedirs(self.saved_models_path, exist_ok = True)
         print(f"    Directory created for storing trained GPs : '{self.saved_models_path}'")
 
-    def train(self, latent_inputs_train, latent_outputs_train):
+    def train(self, latent_inputs_train, latent_outputs_train, with_mask = False):
         """
        Trains independent Gaussian Processes in parallel for each latent output. Trained GPs corresponding
        to respective latent units are saved independently. This makes it easy for them to load on CPUs
@@ -67,8 +69,17 @@ class GPLatent:
        Args:
            latent_inputs_train (numpy.ndarray): Input data for training.
            latent_outputs_train (numpy.ndarray): Output data for training.
+           with_mask (bool): Condition if you want to train GP only on the partial data.
        """
         print("\n=== Training independent GPs parallely ...")
+
+        if with_mask:
+            # Get only partial training points.
+            latent_inputs_train, latent_outputs_train, mask = get_partial_data(latent_inputs_train, latent_outputs_train)
+            print("    Training only on the data with force magnitude more than 0.6 ...")
+            print(mask)
+        else:
+            print("    Training on the complete data ...")
 
         def train_parallel(i):
             print(f"    Training GP for {i + 1}-th latent output")
