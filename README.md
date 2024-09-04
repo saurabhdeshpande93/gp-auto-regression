@@ -3,6 +3,9 @@
 This work introduces an approach that combines autoencoder networks with the probabilistic regression capabilities of Gaussian processes. The autoencoder provides a low-dimensional representation of the solution space, while the Gaussian Processes (GPs) provide a probabilistic mapping between the low-dimensional inputs and outputs. We show the applications of the proposed approach in predicting the non-linear deformation of solids along with associated uncertainties.
 <br />
 
+Supplementary data is available on [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13683123.svg)](https://doi.org/10.5281/zenodo.13683123)
+
+
 ### Framework Overview
 
 The framework takes force inputs and predicts full-field displacements of solid bodies along with uncertainties.
@@ -39,7 +42,7 @@ It is important to note that the GP models should be trained on the latent repre
 autoencoder models whose path is provided in the above step. This is because different autoencoder
 models can have different latent representations for the same full field space data. Ensuring that the GP models are trained on the appropriate latent representations is crucial for accurate predictions.
 
-Default trained **autoencoder model weights and GP models will be provided** in the ['src/pretrained_models'](src/pretrained_models) directory. The autoencoder weight file is `best.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the ['src/pretrained_models/best_GPs'](src/pretrained_models/best_GPs) directory.
+Default trained are to be downloaded from Zenodo and are to be kept in the ['src/pretrained_models'](src/pretrained_models) directory. The autoencoder weight file is `best.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the ['src/pretrained_models/best_GPs'](src/pretrained_models/best_GPs) directory.
 
 - ### Postprocessing of results <br />
 

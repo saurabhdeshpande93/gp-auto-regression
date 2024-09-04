@@ -22,7 +22,6 @@ def main(best_wts_path, test_no):
 
     # STEP 4: Save results to visualize
     process_and_save_prediction(test_no, full_disps, full_sigmas, true_latent_reconstruction)
-    print("\n Done \n")
 
 if __name__ == '__main__':
 
