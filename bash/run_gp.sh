@@ -13,4 +13,4 @@ echo "== Submit dir. : ${SLURM_SUBMIT_DIR}"
 
 cd ..
 source /etc/profile
-time python train.py --model gp
+time python src/train.py --model gp

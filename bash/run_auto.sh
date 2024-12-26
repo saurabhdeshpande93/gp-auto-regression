@@ -9,4 +9,4 @@
 
 cd ..
 source /etc/profile
-time python train.py --model autoencoder
+time python src/train.py --model autoencoder
