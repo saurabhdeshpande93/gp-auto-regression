@@ -1,11 +1,12 @@
+from pathlib import Path
 import os
 
 # Paths
-base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-training_data_path = os.path.join(base_path, 'data/training_data/')   # Path to the training data
-trained_wts_dir = os.path.join(base_path, 'data/pretrained_models/')  # Directory for pre-trained autoencoder and GP models
-tensorboard_log_dir = os.path.join(base_path, 'logs/AutoTrain/')      # Directory for TensorBoard logs
-result_path = os.path.join(base_path, 'results/')                        # Directory for saving results of test example predictions
+root_path = Path(__file__).resolve().parent.parent.parent
+training_data_path = os.path.join(root_path, 'data/training_data/')   # Path to the training data
+trained_wts_dir = os.path.join(root_path, 'data/pretrained_models/')  # Directory for pre-trained autoencoder and GP models
+tensorboard_log_dir = os.path.join(root_path, 'logs/AutoTrain/')      # Directory for TensorBoard logs
+result_path = os.path.join(root_path, 'results/')                        # Directory for saving results of test example predictions
 
 # Autoencoder configs
 dof = 9171           # Degrees of freedom: 3057 nodes * 3 DOFs per node
