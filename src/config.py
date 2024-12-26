@@ -3,10 +3,9 @@ import os
 # Paths
 base_path = os.getcwd()
 training_data_path = os.getcwd() + '/data/training_data/'   # Path to the training data
-trained_wts_dir =  os.getcwd() + '/pretrained_models/'      # Directory for pre-trained autoencoder and GP models
+trained_wts_dir =  os.getcwd() + '/data/pretrained_models/'      # Directory for pre-trained autoencoder and GP models
 tensorboard_log_dir = os.getcwd() +"/logs/AutoTrain/"       # Directory for TensorBoard logs
 result_path = os.getcwd() + '/results/'                     # Directory for saving results of test example predictions
-
 
 # Autoencoder configs
 dof = 9171           # Degrees of freedom: 3057 nodes * 3 DOFs per node

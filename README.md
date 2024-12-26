@@ -35,7 +35,7 @@ The proposed framework has two stages <br />
 By default optimised autoencoder weights and trained GP models are provided to `predict.py` script. To utilize different pretrained weights or specify a particular test case, provide the model weights and define the test number you wish to predict using the following command::
 
 ```bash
-python predict.py --wts_path path/to/weights --test_no test_no_to_predict
+python predict.py --test_no test_no_to_predict
 ```
 
 It is important to note that the GP models should be trained on the latent representations corresponding to the new
