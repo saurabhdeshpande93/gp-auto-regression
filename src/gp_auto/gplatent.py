@@ -7,7 +7,7 @@ import multiprocessing
 import time
 from config import trained_wts_dir,latent_dim, length_scale, nu, noise_level, noise_level_bounds, alpha, gp_optimizer, n_restarts_optimizer
 import os
-from utils import get_partial_data
+from .utils import get_partial_data
 
 class GPLatent:
     """
