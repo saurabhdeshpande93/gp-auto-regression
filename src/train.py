@@ -6,6 +6,7 @@ from gp_auto.config import training_data_path
 import datetime
 from sklearn.preprocessing import MinMaxScaler
 import joblib
+import os 
 
 def train_autoencoder():
     """
@@ -15,7 +16,7 @@ def train_autoencoder():
     # Save the timestamp to a file to use it later in the GP part
     timestamp = datetime.datetime.now().strftime("%d%m_%H%M")
     timestamp_file_path = os.path.join(training_data_path, 'timestamp.txt')
-    with open(training_data_path, 'w') as f:
+    with open(timestamp_file_path, 'w') as f:
         f.write(timestamp)
 
     # STEP 1 = Get training data
