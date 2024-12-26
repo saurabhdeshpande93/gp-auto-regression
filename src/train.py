@@ -2,6 +2,7 @@ import argparse
 from gp_auto.autoencoder import Autoencoder
 from gp_auto.gplatent import GPLatent
 from gp_auto.utils import get_data
+from gp_auto.config import training_data_path
 import datetime
 from sklearn.preprocessing import MinMaxScaler
 import joblib
@@ -13,7 +14,8 @@ def train_autoencoder():
     """
     # Save the timestamp to a file to use it later in the GP part
     timestamp = datetime.datetime.now().strftime("%d%m_%H%M")
-    with open('timestamp.txt', 'w') as f:
+    timestamp_file_path = os.path.join(training_data_path, 'timestamp.txt')
+    with open(training_data_path, 'w') as f:
         f.write(timestamp)
 
     # STEP 1 = Get training data
@@ -35,7 +37,8 @@ def train_gp():
     latent_inputs_train, latent_outputs_train = get_data(data_type='latent', dataset='train', latest_saved=True)
 
     # Retrieve the time-stamp generated while autoencoder training
-    with open('timestamp.txt', 'r') as f:
+    timestamp_file_path = os.path.join(training_data_path, 'timestamp.txt')
+    with open(timestamp_file_path, 'r') as f:
         timestamp_auto = f.read().strip()
 
     # STEP 4 = Define GP and train it

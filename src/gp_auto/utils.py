@@ -1,5 +1,5 @@
 import numpy as np
-from config import training_data_path, result_path, dof
+from .config import training_data_path, result_path, dof
 import os
 
 
@@ -44,7 +44,8 @@ def get_data(data_type='full_field', dataset='both', auto_wts_path = None, lates
 
     # In case of training from scratch, use the unique timestamp to load the data
     if latest_saved:
-        with open('timestamp.txt', 'r') as f:
+        timestamp_file_path = os.path.join(data_path, 'timestamp.txt')
+        with open(timestamp_file_path, 'r') as f:
             timestamp = f.read().strip()
         print(f"\n=== Loading recently compressed test/train displacements (corresponding to the timestamp '{timestamp}') ...")
 

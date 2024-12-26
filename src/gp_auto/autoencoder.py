@@ -8,7 +8,7 @@ from keras.layers import Input, Dense, Add
 from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler, TensorBoard
 from .utils import get_data
-from config import dof, latent_dim, activation, epochs, batch_size, lr0, trained_wts_dir, tensorboard_log_dir, training_data_path
+from .config import dof, latent_dim, activation, epochs, batch_size, lr0, trained_wts_dir, tensorboard_log_dir, training_data_path
 
 np.random.seed(123)
 tf.random.set_seed(750)
