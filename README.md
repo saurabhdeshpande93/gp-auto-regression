@@ -105,13 +105,15 @@ cd gp-auto-regression
 ```
 2. Set up the virtual environment and install dependencies:
 
-For CPU system, create a virtual environment with pip or conda and install dependencies using 'requirement.txt' file as follows:
+Create a virtual environment with pip or conda and install dependencies using 'requirement.txt' file as follows:
 ```bash
 conda create -n gpauto python==3.10
 conda activate gpauto
+pip install -e . 
+#or 
 pip install -r requirements.txt
 ```
-For GPU (Tested on Linux system)
+Alternatively, you can create a virtual environment and install dependencies using the provided yml file (tested on Linux systems):
 
 ```bash
 conda env create -f gpauto.yml
