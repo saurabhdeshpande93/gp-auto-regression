@@ -3,7 +3,7 @@
 This work introduces an approach that combines autoencoder networks with the probabilistic regression capabilities of Gaussian processes. The autoencoder provides a low-dimensional representation of the solution space, while the Gaussian Processes (GPs) provide a probabilistic mapping between the low-dimensional inputs and outputs. We show the applications of the proposed approach in predicting the non-linear deformation of solids along with associated uncertainties.
 <br />
 
-Supplementary data is available on [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13683123.svg)](https://doi.org/10.5281/zenodo.13683123)
+Supplementary data is available on [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14563089.svg)](https://doi.org/10.5281/zenodo.14563089)
 
 
 ### Framework Overview
@@ -31,18 +31,28 @@ The proposed framework has two stages <br />
 
 ## Usage Instructions
 
-- ### Prediction using pretrained models <br />
-For a given input force in its latent representation, the probabilistic displacement ouput by the proposed framework is obtained by using `predict.py` script. By default optimised autoencoder weights and trained GP models are provided to `predict.py` script. To utilize different pretrained weights or specify a particular test case, provide the model weights and define the test number you wish to predict using the CLI arguments as follows:
+- ### Download data <br />
+Download pretrained models and training-test data from Zenodo as follows: 
+
+```bash
+curl -L -o data.zip "https://zenodo.org/records/14563089/files/data.zip?download=1"
+unzip data.zip
+```
+
+### Prediction using Pretrained Models
+
+To predict the probabilistic displacement output for a given input force in its latent representation, use the `predict.py` script. By default, the script uses optimized autoencoder weights and trained GP models. 
+
+To use different pretrained weights or specify a particular test case, provide the model weights and define the test number using the following CLI arguments:
 
 ```bash
 python src/predict.py --wts_path path/to/weights --test_no test_no_to_predict
 ```
 
-It is important to note that the GP models should be trained on the latent representations corresponding to the new
-autoencoder models whose path is provided in the above step. This is because different autoencoder
-models can have different latent representations for the same full field space data. Ensuring that the GP models are trained on the appropriate latent representations is crucial for accurate predictions.
+Pretrained weights can be downloaded from Zenodo and are located in the [data/pretrained_models](data) directory. The autoencoder weight file is named `best.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the [src/pretrained_models/best_GPs](data) directory.
 
-Default trained are to be downloaded from Zenodo and are to be kept in the ['data/pretrained_models'](data) directory. The autoencoder weight file is `best.h5`, and the optimized GP models for all latent units are stored as `GP_{latent_unit_no}.pkl` in the ['src/pretrained_models/best_GPs'](data) directory.
+**Note** - When using custom-trained autoencoder and GP models, it's essential to always use the same autoencoder during both training and prediction phases. This ensures consistency when reconstructing the full-field solution. Using a different autoencoder can produce different latent representations for the same data, leading to incorrect results.
+
 
 - ### Postprocessing of results <br />
 
@@ -117,30 +127,28 @@ AceFEM is available [here](http://symech.fgg.uni-lj.si/Download.htm).
 
 ## Datasets
 
-**NOTE: Datasets will be provided soon.**
-
 Training data is provided in the [<span style="color:blue">'data/training_data'</span>](data) directory. Datsets have been obtained through non-linear FEM simulations using [AceFEM](http://symech.fgg.uni-lj.si/Download.htm) framework. The pipeline to create numpy arrays of datasets will be provided soon. <br />
 
 Originally, the following four dataset arrays are provided.:
 
-| Data                       | Shape                    | Description                                           |
-|----------------------------|--------------------------|-------------------------------------------------------|
-| `Y_train.npy`              | `(n_train, dof)`         | Full field displacements of training set (originally provided) |
-| `Y_test.npy`               | `(n_test, dof)`          | Full field displacements of test set (originally provided)    |
-| `latent_inputs_train.npy`  | `(n_train, 3)`           | Latent input forces of training set (originally provided)      |
-| `latent_inputs_test.npy`   | `(n_test, 3)`            | Latent input forces of test set (originally provided)         |
+| Data                       | Shape                    | Description                                                    |
+|----------------------------|--------------------------|----------------------------------------------------------------|
+| `train_full_outputs.npy`   | `(n_train, dof)`         | Full field displacements of training set (originally provided) |
+| `test_full_outputs.npy`    | `(n_test, dof)`          | Full field displacements of test set (originally provided)     |
+| `train_latent_inputs.npy`  | `(n_train, 3)`           | Latent input forces of training set (originally provided)      |
+| `test_latent_inputs.npy`   | `(n_test, 3)`            | Latent input forces of test set (originally provided)          |
 
 <br />
 Compressed (encoded) representations of `Y_train.npy` and `Y_test.npy` obtained using the encoder part of the optimised autoencoder network (with best weights) are saved in the same data folder as:
 
-| Compressed Data                       | Shape                    | Description                                           |
-|----------------------------|--------------------------|-------------------------------------------------------|
-| `best_latent_outputs_train.npy`| `(n_train, latent_dim)`   | Latent displacements of train set (obtained after encoding Y_train)     |
-| `best_latent_outputs_test.npy` | `(n_test, latent_dim)`    | Latent displacements of test set (obtained after encoding Y_test)       |
+| Compressed Data                | Shape                    | Description                                                         |
+|--------------------------------|--------------------------|---------------------------------------------------------------------|
+| `best_train_latent_outputs.npy`| `(n_train, latent_dim)`  | Latent displacements of train set (obtained after encoding Y_train) |
+| `best_test_latent_outputs.npy` | `(n_test, latent_dim)`   | Latent displacements of test set (obtained after encoding Y_test)   |
 
 <br />
 
-For training from scratch: Compressed displacement are saved as `{timestamp}_latent_outputs_train(test).npy` where 'timestamp' refers to the unique timestamp generated at the start of the training procedure.
+For training from scratch: Compressed displacement are saved as `{timestamp}_latent_outputs_train(test).npy` where 'timestamp' refers to the unique timestamp generated at the start of the training procedure. It is present in the `timestamp.txt`. By default it is set to `best`.
 
 <br />
 
