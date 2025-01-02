@@ -1,8 +1,8 @@
 import argparse
-from autoencoder import Autoencoder
-from gplatent import GPLatent
-from utils import get_data, process_and_save_prediction, get_partial_data
-from config import trained_wts_dir
+from gp_auto.autoencoder import Autoencoder
+from gp_auto.gplatent import GPLatent
+from gp_auto.utils import get_data, process_and_save_prediction, get_partial_data
+from gp_auto.config import trained_wts_dir
 import numpy as np
 import joblib
 
