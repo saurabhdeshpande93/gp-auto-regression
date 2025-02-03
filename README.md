@@ -158,14 +158,17 @@ For training from scratch: Compressed displacement are saved as `{timestamp}_lat
 
 
 ```
-@misc{deshpande2024gaussianprocessregression,
-      title={Gaussian process regression + deep neural network autoencoder for probabilistic surrogate modeling in nonlinear mechanics of solids},
-      author={Saurabh Deshpande and Hussein Rappel and Mark Hobbs and Stéphane P. A. Bordas and Jakub Lengiewicz},
-      year={2025},
-      eprint={2407.10732},
-      archivePrefix={arXiv},
-      primaryClass={cs.CE},
-      url={https://arxiv.org/abs/2407.10732},
+@article{DESHPANDE2025117790,
+title = {Gaussian process regression + deep neural network autoencoder for probabilistic surrogate modeling in nonlinear mechanics of solids},
+journal = {Computer Methods in Applied Mechanics and Engineering},
+volume = {437},
+pages = {117790},
+year = {2025},
+issn = {0045-7825},
+doi = {https://doi.org/10.1016/j.cma.2025.117790},
+url = {https://www.sciencedirect.com/science/article/pii/S0045782525000623},
+author = {Saurabh Deshpande and Hussein Rappel and Mark Hobbs and Stéphane P.A. Bordas and Jakub Lengiewicz},
+keywords = {Surrogate modeling, Deep neural networks, Gaussian process, Autoencoders, Uncertainty quantification, Finite element method}
 }
 ```
 
